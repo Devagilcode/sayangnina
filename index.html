@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bucin Card — Nina Rizkia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f172a;
+      --bg2:#0b1220;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.08);
+      --accent:#ff6b9a;
+      --accent-2:#ffafcc;
+      --card-w:min(880px,92vw);
+      --glass-border: rgba(255,255,255,0.12);
+      --shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 20%, rgba(255,107,154,0.08), transparent 10%),
+                  radial-gradient(900px 400px at 90% 80%, rgba(255,175,204,0.05), transparent 10%),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#e6eef8;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .card{
+      width:var(--card-w);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;
+      padding:28px;
+      backdrop-filter: blur(10px) saturate(110%);
+      -webkit-backdrop-filter: blur(10px) saturate(110%);
+      border: 1px solid var(--glass-border);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns: 420px 1fr;
+      gap:20px;
+      align-items:center;
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .card{grid-template-columns:1fr; padding:20px}
+    }
+
+    .left{
+      padding:18px;
+      min-height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+
+    .right{
+      padding:12px 8px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    h1{
+      margin:0 0 6px 0;
+      font-weight:800;
+      font-size:28px;
+      letter-spacing:-0.6px;
+    }
+    p.lead{
+      margin:0;
+      opacity:0.9;
+      font-weight:400;
+    }
+
+    .glass-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      border-radius:12px;
+      padding:8px 12px;
+      font-weight:600;
+      font-size:13px;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    /* SVG area */
+    .svg-wrap{
+      width:360px;
+      height:360px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+
+    svg{display:block; width:100%; height:100%}
+
+    .love-path{
+      fill:none;
+      stroke:var(--accent);
+      stroke-width:3.6;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      filter: drop-shadow(0 6px 14px rgba(255,107,154,0.12));
+    }
+
+    .love-path.ghost{
+      stroke:rgba(255,255,255,0.06);
+      stroke-width:1.5;
+      mix-blend-mode:screen;
+    }
+
+    .name-text{font-weight:800; font-size:22px; fill: none; stroke: none;}
+
+    .floating-words{
+      margin-top:6px;
+      font-size:18px;
+      font-weight:600;
+      color:var(--accent-2);
+      letter-spacing:0.2px;
+    }
+
+    .actions{
+      margin-top:10px;
+      display:flex;gap:8px;flex-wrap:wrap
+    }
+    .btn{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      border:none;color:#111;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(255,107,154,0.12)
+    }
+
+    /* small animated hearts */
+    .heart{
+      position:absolute;
+      pointer-events:none;
+      transform-origin:center;
+      will-change:transform,opacity,top,left;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
+    }
+
+    footer{opacity:0.7;font-size:12px;margin-top:6px}
+
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <section class="left">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 500 500" id="love-svg">
+          <!-- subtle ghost heart behind -->
+          <path id="ghost" class="love-path ghost" d="M250,360 C120,340 60,240 150,160 C220,100 260,120 250,180 C240,120 280,100 350,160 C440,240 380,340 250,360 Z"/>
+
+          <!-- main animated heart path -->
+          <path id="heart-path" class="love-path" d="M250,360 C120,340 60,240 150,160 C220,100 260,120 250,180 C240,120 280,100 350,160 C440,240 380,340 250,360 Z"/>
+
+          <!-- moving dot that follows the path -->
+          <circle id="dot" r="6" fill="#fff" stroke="none">
+            <animateMotion dur="6s" repeatCount="indefinite">
+              <mpath xlink:href="#heart-path" />
+            </animateMotion>
+          </circle>
+
+          <!-- name drawn along the heart curve -->
+          <defs>
+            <path id="text-path" d="M140,210 C200,160 280,160 360,210" />
+          </defs>
+          <text font-family="Inter, sans-serif" font-size="20" fill="#fff" font-weight="800">
+            <textPath href="#text-path" startOffset="50%" text-anchor="middle">Nina rizkia ❤️</textPath>
+          </text>
+
+        </svg>
+      </div>
+    </section>
+
+    <section class="right">
+      <div>
+        <h1>Untuk Nina Rizkia</h1>
+        <p class="lead">Selembar kata manis untuk yang selalu bikin hati lembek. Bucin mode: ON 💘</p>
+      </div>
+
+      <div class="glass-row">
+        <div class="pill">#bucin</div>
+        <div class="pill">#cinta</div>
+        <div class="pill">nina_rizkia</div>
+      </div>
+
+      <div class="floating-words" id="phrase">Kau adalah alas tidur tenang di malamku...</div>
+
+      <div class="actions">
+        <button class="btn" id="toggleAnim">Pause Animasi</button>
+        <button class="btn" id="sendHeart">Kirim Hati</button>
+      </div>
+
+      <footer>Card glass modern • Efek SVG + animasi JavaScript</footer>
+    </section>
+
+  </main>
+
+  <script>
+    // ========= Settings & Data ==========
+    const phrases = [
+      "Kau adalah alas tidur tenang di malamku...",
+      "Setiap nafas mengucap namamu, Nina rizkia.",
+      "Bersamamu, hujan jadi alasan tersenyum.",
+      "Hatiku lebih suka pacaran sama caramu tertawa.",
+      "Kamu, alasan lagu cinta berulang di kepalaku."
+    ];
+
+    // Animated stroke drawing
+    const path = document.getElementById('heart-path');
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length + ' ' + length;
+    path.style.strokeDashoffset = length;
+    path.getBoundingClientRect(); // trigger layout
+
+    // Draw in 2200ms then loop gently by pulsing
+    const drawDuration = 2200;
+    path.animate([
+      { strokeDashoffset: length },
+      { strokeDashoffset: 0 }
+    ],{
+      duration: drawDuration,
+      easing: 'cubic-bezier(.2,.9,.2,1)'
+    }).onfinish = ()=>{
+      // gentle heartbeat pulse loop
+      path.animate([
+        { strokeWidth: '3.6' },
+        { strokeWidth: '5.2' },
+        { strokeWidth: '3.6' }
+      ],{duration:1200, iterations: Infinity, easing:'ease-in-out'});
+    };
+
+    // floating phrases rotate
+    const phraseEl = document.getElementById('phrase');
+    let pi = 0;
+    setInterval(()=>{
+      pi = (pi + 1) % phrases.length;
+      phraseEl.animate([{opacity:1, transform:'translateY(0px)'},{opacity:0, transform:'translateY(-10px)'}],{duration:420, easing:'ease-in'}).onfinish = ()=>{
+        phraseEl.textContent = phrases[pi];
+        phraseEl.animate([{opacity:0, transform:'translateY(10px)'},{opacity:1, transform:'translateY(0px)'}],{duration:420, easing:'ease-out'});
+      };
+    }, 4200);
+
+    // Pause/play animation
+    const toggleBtn = document.getElementById('toggleAnim');
+    let animPlaying = true;
+    toggleBtn.addEventListener('click', ()=>{
+      animPlaying = !animPlaying;
+      const svg = document.getElementById('love-svg');
+      if(!animPlaying){
+        svg.style.animationPlayState = 'paused';
+        // pause all SMIL (animateMotion) by setting paused via document.getElementById('dot').style.animationPlayState?;
+        // SMIL pause trick: set currentTime via setCurrentTime? Not widely supported. Simpler: hide dot and pause CSS animations.
+        document.getElementById('dot').style.display = 'none';
+        toggleBtn.textContent = 'Lanjutkan Animasi';
+      } else {
+        document.getElementById('dot').style.display = '';
+        toggleBtn.textContent = 'Pause Animasi';
+      }
+    });
+
+    // Create floating hearts when clicking "Kirim Hati"
+    const card = document.querySelector('.card');
+    document.getElementById('sendHeart').addEventListener('click', ()=>{
+      spawnHeart();
+    });
+
+    function spawnHeart(){
+      const el = document.createElement('div');
+      el.className = 'heart';
+      const size = 14 + Math.random()*28;
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      // set start position near the bottom-right of the svg wrap
+      const wrap = document.querySelector('.svg-wrap');
+      const rect = wrap.getBoundingClientRect();
+      const startX = rect.left + rect.width*0.6 + (Math.random()-0.5)*40;
+      const startY = rect.top + rect.height*0.5 + (Math.random()-0.5)*40;
+      el.style.left = startX + 'px';
+      el.style.top = startY + 'px';
+      el.style.position = 'fixed';
+
+      // heart inner svg
+      el.innerHTML = `<svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden><path d="M23.6 4.6c-2.3 0-4.2 1.4-5.6 3-1.4-1.6-3.3-3-5.6-3C6.2 4.6 3 8.8 3 13.2c0 6.4 11 11.9 13 13.1.4.3 1 .3 1.4 0 2-1.2 13-6.8 13-13.1 0-4.4-3.2-8.6-7.8-8.6z" fill="url(#g)"></path><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff6b9a"/><stop offset="1" stop-color="#ffafcc"/></linearGradient></defs></svg>`;
+
+      document.body.appendChild(el);
+
+      // animate to top and fade
+      const dx = (Math.random()-0.5)*120;
+      const dy = -180 - Math.random()*140;
+      const rot = (Math.random()-0.5)*80;
+      el.animate([
+        { transform: 'translate(0px,0px) rotate(0deg)', opacity:1 },
+        { transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)`, opacity:0 }
+      ],{duration: 1500 + Math.random()*900, easing:'cubic-bezier(.2,.75,.2,1)'}).onfinish = ()=>el.remove();
+    }
+
+    // Spawn a few automatically to make page lively
+    setTimeout(()=>{ spawnHeart(); setTimeout(spawnHeart,200); }, 600);
+
+    // Accessibility: expose name in document title and aria
+    document.title = 'Nina Rizkia • Bucin Card';
+  </script>
+</body>
+</html>
